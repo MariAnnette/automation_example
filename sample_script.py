@@ -8,7 +8,7 @@ driver = webdriver.Chrome()
 # open the url
 driver.get('https://www.google.com/')
 
-search = driver.find_element(By.NAME, 'q')
+search = driver.find_element(By.XPATH, "//input[@name='q']")
 search.clear()
 search.send_keys('dress')
 
@@ -20,6 +20,10 @@ driver.find_element(By.NAME, 'btnK').click()
 
 # verify
 assert 'dress' in driver.find_element(By.XPATH, "//div[contains(@class,'commercial-unit-desktop-top')]").text
+
+# This print() will print out element's text into the console
+print(driver.find_element(By.XPATH, "//div[contains(@class,'commercial-unit-desktop-top')]").text)
+
 assert 'dress' in driver.find_element(By.XPATH, "//div[@class='g']").text
 
 driver.quit()
