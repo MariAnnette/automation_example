@@ -1,5 +1,5 @@
 # Created by svetlanalevinsohn at 4/20/19
-Feature: HW1: Amazon tests
+Feature: DEMO: Amazon tests
 
   Scenario: Search Help returns correct result
     Given Open Amazon page

@@ -13,4 +13,10 @@ Feature: Test Scenarios for Search functionality
     When Input dress into Amazon search field
     And Click on Amazon search icon
     Then Amazon product results for dress are shown
+
+  Scenario: User can see 5 popular items upon search
+    Given Open Amazon page
+    When Input dress into Amazon search field
+    And Click on Amazon search icon
+    Then Verify 5 popular items are displayed
     

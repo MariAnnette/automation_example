@@ -4,7 +4,9 @@ from selenium.webdriver.common.by import By
 
 SEARCH_FIELD = (By.ID, 'twotabsearchtextbox')
 SEARCH_ICON = (By.XPATH, "//input[@type='submit' and @class='nav-input']")
-RESULTS_INFO_BAR = (By.XPATH, "//span[@data-component-type='s-result-info-bar']/div")
+RESULTS_INFO_BAR = (By.CSS_SELECTOR, "span.a-color-state.a-text-bold")
+
+POPULAR_ITEMS = (By.CSS_SELECTOR, 'div#anonCarousel1 li')
 
 
 @given('Open Amazon page')
@@ -27,3 +29,10 @@ def click_search_icon(context):
 @then('Amazon product results for {word} are shown')
 def verify_result_present(context, word):
     assert word in context.driver.find_element(*RESULTS_INFO_BAR).text
+
+
+@then('Verify 5 popular items are displayed')
+def verify_popular_items(context):
+    items = context.driver.find_elements(*POPULAR_ITEMS)
+    print('\n', items)
+    assert len(items) == 5, 'Expected items amount is 5, but get {}'.format(len(items))

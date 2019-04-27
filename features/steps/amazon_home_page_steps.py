@@ -1,6 +1,7 @@
 from behave import given, when, then
 from time import sleep
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 HELP_LINK = (By.XPATH, "//a[contains(@href,'nav_cs_help')]")
 ORDERS_LINK = (By.ID, "nav-orders")
@@ -35,11 +36,12 @@ def verify_shop_category_txt(context):
 @when('Click on closing X of the side menu')
 def click_x(context):
     context.driver.find_element(*HAMBURGER_MENU_X).click()
-    sleep(2) # wait for menu to close
+    context.driver.wait.until(EC.invisibility_of_element_located(HAMBURGER_MENU_X))
 
 
 @when("Click on 'Try Prime' from Amazon logo")
 def click_try_prime(context):
+    context.driver.wait.until(EC.element_to_be_clickable(LOGO_TRY_PRIME_LINK))
     context.driver.find_element(*LOGO_TRY_PRIME_LINK).click()
 
 
