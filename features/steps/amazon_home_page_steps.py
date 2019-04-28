@@ -11,6 +11,14 @@ SHOP_BY_CATEGORY = (By.XPATH, "//ul[@class='hmenu  hmenu-visible']/li[1]/div[@cl
 HAMBURGER_MENU_X = (By.XPATH, "//div[@class='nav-sprite hmenu-close-icon']")
 LOGO_TRY_PRIME_LINK = (By.XPATH, "//div[@id='nav-logo']/a[contains(@href, 'prime')]")
 TRY_PRIME_CTA_BTN = (By.ID, 'prime-header-CTA')
+PRIME_BENEFITS_CARDS = (By.CSS_SELECTOR, 'div#prime-benefit-cards div.card-category')
+
+AD_FEEDBACK = (By.ID, 'ad-feedback-text-right-2')
+SEND_FEEDBACK_BTN = (By.ID, 'da-feedback-send-feedback-button')
+
+ADD_CART_BTN = (By.ID, 'add-to-cart-button')
+CART_CONFIRM_TEXT = (By.ID, 'confirm-text')
+CART_COUNT = (By.ID, 'nav-cart-count')
 
 
 @given('Click on Orders navigation link')
@@ -45,6 +53,33 @@ def click_try_prime(context):
     context.driver.find_element(*LOGO_TRY_PRIME_LINK).click()
 
 
+@when("Click on 'Ad feedback'")
+def click_ad_feedback(context):
+    context.driver.find_element(*AD_FEEDBACK).click()
+
+
+@when('Click Add to cart button')
+def add_to_cart(context):
+    context.driver.find_element(*ADD_CART_BTN).click()
+
+
 @then('Amazon Prime page is opened')
 def verify_on_prime_page(context):
     context.driver.find_element(*TRY_PRIME_CTA_BTN)
+
+
+@then('4 prime benefits cards are shown')
+def verify_prime_benefits_cards(context):
+    benefits_cards = context.driver.find_elements(*PRIME_BENEFITS_CARDS)
+    assert len(benefits_cards) == 4, 'Expected 4 prime benefits cards but got {}'.format(len(benefits_cards))
+
+
+@then('Ad feedback form is opened')
+def verify_ad_feedback_opened(context):
+    context.driver.wait.until(EC.visibility_of_element_located(AD_FEEDBACK))
+
+
+@then('Item has been added to the cart')
+def verify_item_added(context):
+    context.driver.wait.until(EC.presence_of_element_located(CART_CONFIRM_TEXT))
+    assert context.driver.find_element(*CART_COUNT).text == '1'

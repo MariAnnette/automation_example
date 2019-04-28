@@ -14,6 +14,11 @@ def open_amazon(context):
     context.driver.get('https://www.amazon.com')
 
 
+@given('Open page for product {product_id}')
+def open_amazon_product(context, product_id):
+    context.driver.get('https://www.amazon.com/dp/{}'.format(product_id))
+
+
 @when('Input {word} into Amazon search field')
 def input_query(context, word):
     el = context.driver.find_element(*SEARCH_FIELD)
