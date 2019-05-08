@@ -11,12 +11,13 @@ POPULAR_ITEMS = (By.CSS_SELECTOR, 'div#anonCarousel1 li')
 
 @given('Open Amazon page')
 def open_amazon(context):
-    context.driver.get('https://www.amazon.com')
+    context.driver.get(context.url)
 
 
 @given('Open page for product {product_id}')
 def open_amazon_product(context, product_id):
-    context.driver.get('https://www.amazon.com/dp/{}'.format(product_id))
+    print(product_id)
+    context.driver.get('{}/dp/{}'.format(context.url, product_id))
 
 
 @when('Input {word} into Amazon search field')
