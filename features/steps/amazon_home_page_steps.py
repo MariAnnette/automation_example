@@ -19,6 +19,8 @@ SEND_FEEDBACK_BTN = (By.ID, 'da-feedback-send-feedback-button')
 ADD_CART_BTN = (By.ID, 'add-to-cart-button')
 CART_CONFIRM_TEXT = (By.ID, 'confirm-text')
 CART_COUNT = (By.ID, 'nav-cart-count')
+CART = (By.ID, 'nav-cart')
+CART_EMPTY_HEADER = (By.CSS_SELECTOR ,'div.sc-cart-header h1')
 
 
 @given('Click on Orders navigation link')
@@ -34,6 +36,11 @@ def click_help_link(context):
 @when('Click Hamburger menu icon')
 def click_hamburger_menu(context):
     context.driver.find_element(*HAMBURGER_MENU).click()
+
+
+@when('Click on cart icon')
+def click_cart_icon(context):
+    context.driver.find_element(*CART).click()
 
 
 @then("'Shop by category' text is present")
@@ -83,3 +90,8 @@ def verify_ad_feedback_opened(context):
 def verify_item_added(context):
     context.driver.wait.until(EC.presence_of_element_located(CART_CONFIRM_TEXT))
     assert context.driver.find_element(*CART_COUNT).text == '1'
+
+
+@then("Verify '{expected_text}' text present")
+def verify_cart_empty_text(context, expected_text):
+    assert expected_text == context.driver.wait.until(EC.presence_of_element_located(CART_EMPTY_HEADER)).text
