@@ -14,6 +14,11 @@ def open_amazon(context):
     context.driver.get(context.url)
 
 
+@given('Open Amazon {url} page')
+def open_amazon(context, url):
+    context.driver.get(context.url+url)
+
+
 @given('Open page for product {product_id}')
 def open_amazon_product(context, product_id):
     print(product_id)

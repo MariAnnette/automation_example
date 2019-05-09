@@ -75,10 +75,11 @@ def verify_on_prime_page(context):
     context.driver.find_element(*TRY_PRIME_CTA_BTN)
 
 
-@then('4 prime benefits cards are shown')
-def verify_prime_benefits_cards(context):
+@then('{amount} prime benefits cards are shown')
+def verify_prime_benefits_cards(context, amount):
     benefits_cards = context.driver.find_elements(*PRIME_BENEFITS_CARDS)
-    assert len(benefits_cards) == 4, 'Expected 4 prime benefits cards but got {}'.format(len(benefits_cards))
+    # print(type(amount))
+    assert len(benefits_cards) == int(amount), 'Expected 4 prime benefits cards but got {}'.format(len(benefits_cards))
 
 
 @then('Ad feedback form is opened')
