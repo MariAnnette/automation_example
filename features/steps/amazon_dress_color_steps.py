@@ -50,3 +50,21 @@ def verify_colors_selection(context):
 #     for color in colors:
 #         color.click()
 #         assert context.driver.find_element(*SELECTED_COLOR).text == expected_colors[colors.index(color)]
+
+
+@then('Verify user can select jeans colors')
+def verify_jeans_colors_selection(context):
+    expected_colors = ['Rinse', 'Medium Wash', 'Dark Wash']
+    color_webelements = context.driver.find_elements(*COLOR_OPTIONS)
+    print('\n\nWebElements:\n', color_webelements)
+
+    for x in range(len(color_webelements)):
+        print('\nWebElement:', color_webelements[x])
+        color_webelements[x].click()
+
+        actual_color_text = context.driver.find_element(*SELECTED_COLOR).text
+        print('Actual color: ', actual_color_text)
+
+        print('Expected color: ', expected_colors[x])
+        assert actual_color_text == expected_colors[x], \
+            'Expected color {}, but got {}'.format(expected_colors[x], actual_color_text)
