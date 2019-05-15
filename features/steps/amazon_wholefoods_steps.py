@@ -7,10 +7,9 @@ PRODUCT_NAME = (By.CSS_SELECTOR, 'span.wfm-sales-item-card__product-name.a-text-
 
 @then("Every product on the page has 'Regular' text")
 def verify_regular_text(context):
-    products = context.driver.find_elements(*ALL_PRODUCTS)
-    for product in products:
+    for product in context.driver.find_elements(*ALL_PRODUCTS):
         print('\nChecking:', product.text)
-        assert 'Regular ' in product.text, "Expected 'Regular $' to be in product test, but got {}".format(product.text)
+        assert 'Regular ' in product.text, "Expected 'Regular $' to be in product text, but got {}".format(product.text)
 
 
 @then("Every product on the page has a product name")
